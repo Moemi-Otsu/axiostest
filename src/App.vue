@@ -1,19 +1,40 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h3>掲示板に投稿する</h3>
+    <label for="name">ニックネーム</label>
+    <input
+      id="name"
+      type="text"
+    >
+    <br><br>
+    <label for="comment">コメント：</label>
+    <textarea
+      id="comment"
+    ></textarea>
+    <br><br>
+    <button @click="createComment">コメントをサーバーに送る</button>
+    <h2>掲示板</h2>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      name: "",
+      comment: ""
+    };
+  },
+  methods: {
+    createComment() {
+      axios.post(
+        "https://firestore.googleapis.com/v1/projects/vuejs-http-40867/databases/(default)/documents/comments"
+      );
+    }
   }
-}
+};
 </script>
 
 <style>
