@@ -29,27 +29,36 @@ export default {
       comment: ""
     };
   },
+  created() {
+    axios.get(
+      "https://firestore.googleapis.com/v1/projects/vuejs-http-40867/databases/(default)/documents/comments"
+    )
+    .then(response => {
+      console.log(response);
+    });
+  },
   methods: {
     createComment() {
-      axios.post(
+      axios
+        .post(
         "https://firestore.googleapis.com/v1/projects/vuejs-http-40867/databases/(default)/documents/comments",
         {
-          fields: {
-            name: {
-              stringValue: this.name
-            },
-            comment: {
-              stringValue: this.comment
-            },
+            fields: {
+              name: {
+                stringValue: this.name
+              },
+              comment: {
+                stringValue: this.comment
+              },
+            }
           }
-        }
-      )
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+        )
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
       this.name = "";
       this.comment = "";
     }
