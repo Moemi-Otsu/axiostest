@@ -25,12 +25,13 @@ axios.interceptors.request.use(
 );
 // サーバーからデータをとってきてthenに渡す前に処理入れるresponse
 axios.interceptors.response.use(
-  config => {
-    return config;
+  response => {
+    console.log('interceptors response', response);
+    return response;
   },
   error => {
     return Promise.reject(error);
-  });
+  })
 
 new Vue({
   render: h => h(App),
