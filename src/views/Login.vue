@@ -15,7 +15,7 @@
 						v-model="password"
 				>
 				<br><br>
-				<button @click="createComment">コメントをサーバーに送る</button>
+				<button @click="createComment">送信</button>
   </div>
 </template>
 
@@ -27,5 +27,8 @@ export default {
       password: "",
     };
   },
+		methods: {
+    login() {}
+		},
 };
 </script>
