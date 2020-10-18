@@ -15,7 +15,7 @@
 						v-model="password"
 				>
 				<br><br>
-				<button @click="createComment">送信</button>
+				<button @click="login">送信</button>
   </div>
 </template>
 

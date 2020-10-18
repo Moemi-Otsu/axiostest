@@ -11,15 +11,15 @@ export default new Router({
   routes: [
     {
       path: '/',
-      components: Comments
+      component: Comments
     },
     {
       path: '/login',
-      components: Login
+      component: Login
     },
     {
       path: '/register',
-      components: Register
+      component: Register
     }
   ]
 });
