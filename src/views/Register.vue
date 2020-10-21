@@ -20,29 +20,22 @@
 </template>
 
 <script>
-		import axios from '../axios-auth';
-  export default {
-    data() {
-      return {
-        email: "",
-        password: "",
-      };
-    },
-    methods: {
-      register() {
-        axios.post(
-          '/accounts:signUp?key=AIzaSyA8PIk5QNMeEveVOS-S8eQa8Ztg9bgrfHk'
-        , {
-            email: this.email,
-            password: this.password,
-            returnSecureToken: true
-          }
-        ).then(response => {
-          console.log(response);
-        });
-        this.email = "";
-        this.password = "";
-      }
-    },
-  };
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    register() {
+      this.$store.dispatch('register', {
+        email: this.email,
+        password: this.password
+      });
+      this.email = "";
+      this.password = "";
+    }
+  },
+};
 </script>
