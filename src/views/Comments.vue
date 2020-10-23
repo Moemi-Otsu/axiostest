@@ -35,20 +35,26 @@ export default {
       posts: [],
     };
   },
+		computed: {
+    idToken() {
+      return this.$store.getters.idToken;
+    }
+		},
   created() {
     axios
       .get(
-        "/comments"
-      )
-      .then(response => {
+        "/comments", {
+          headers: {
+            Authorization: `Bearer ${this.idToken}`
+          }
+        }).then(response => {
         this.posts = response.data.documents;
         console.log(response);
       });
   },
   methods: {
     createComment() {
-      axios
-        .post(
+      axios.post(
           "/comments",
           {
             fields: {
@@ -59,14 +65,13 @@ export default {
                 stringValue: this.comment
               },
             }
+          },
+        {
+          headers: {
+            Authorization: `Bearer ${this.idToken}`
           }
-        )
-        .then(response => {
-          console.log(response);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        }
+      );
       this.name = "";
       this.comment = "";
     }
