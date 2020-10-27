@@ -30,12 +30,12 @@ export default new Vuex.Store({
       ).then(response => {
         commit('updateIdToken', response.data.idToken);
         setTimeout(() => {
-          dispatch('refreshIdToken', response.data.refreshToken;)
+          dispatch('refreshIdToken', response.data.refreshToken);
         }, response.data.expiresIn * 1000);
         router.push('/');
       });
     },
-    refreshIdToken({ commit, dispatch }, refreshIdToken) {
+    refreshIdToken({ commit, dispatch }, refreshToken) {
       axiosRefresh.post('/token?key=AIzaSyA8PIk5QNMeEveVOS-S8eQa8Ztg9bgrfHk',
         {
           grant_type: 'refresh_token',
