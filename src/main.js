@@ -39,6 +39,7 @@ const interceptorsResponse = axios.interceptors.response.use(
 axios.interceptors.request.eject(interceptorsResponse);
 axios.interceptors.request.eject(interceptorsRequest);
 
+store.dispatch('autoLogin');
 new Vue({
   router,
   store,
