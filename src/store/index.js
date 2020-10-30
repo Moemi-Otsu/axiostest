@@ -29,13 +29,12 @@ export default new Vuex.Store({
       if (isExpired) {
         dispatch('refreshIdToken', refreshToken);
       } else {
-        const expiredInMs = expiryTimeMs - now.getTime();
+        const expiresInMs = expiryTimeMs - now.getTime();
         setTimeout(() => {
           dispatch('refreshIdToken', refreshToken);
-        }, expiredInMs);
+        }, expiresInMs);
         commit('updateIdToken', idToken);
       }
-      commit('updateIdToken', idToken);
     },
     login({ dispatch }, authData) {
       axios.post(
@@ -63,9 +62,9 @@ export default new Vuex.Store({
         })
         .then(response => {
           dispatch('setAuthData', {
-            idToken: response.data.idToken,
-            expiresIn: response.data.expiresIn,
-            refreshToken: response.data.refreshToken
+            idToken: response.data.id_token,
+            expiresIn: response.data.expires_in,
+            refreshToken: response.data.refresh_token
           });
         });
     },
@@ -88,14 +87,14 @@ export default new Vuex.Store({
     },
     setAuthData({ commit, dispatch }, authData) {
       const now = new Date();
-      const expiryTimeMs = now.getTime() + authData.data.expiresIn * 1000;
-      commit('updateIdToken', authData.data.idToken);
-      localStorage.setItem('idToken', authData.data.idToken);
+      const expiryTimeMs = now.getTime() + authData.expiresIn * 1000;
+      commit('updateIdToken', authData.idToken);
+      localStorage.setItem('idToken', authData.idToken);
       localStorage.setItem('expiryTimeMs', expiryTimeMs);
-      localStorage.setItem('refreshToken', authData.data.refreshToken);
+      localStorage.setItem('refreshToken', authData.refreshToken);
       setTimeout(() => {
-        dispatch('refreshIdToken', authData.data.refreshToken);
-      }, authData.data.expiresIn * 1000);
+        dispatch('refreshIdToken', authData.refreshToken);
+      }, authData.expiresIn * 1000);
     }
   }
 });
