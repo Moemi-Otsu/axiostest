@@ -53,6 +53,13 @@ export default new Vuex.Store({
         router.push('/');
       });
     },
+    logout({ commit }) {
+      commit('updateIdToken', null);
+      localStorage.removeItem('idToken');
+      localStorage.removeItem('expiryTimeMs');
+      localStorage.removeItem('refreshToken');
+      router.replace('/login');
+    },
     async refreshIdToken({ dispatch }, refreshToken) {
       await axiosRefresh
         .post('/token?key=AIzaSyA8PIk5QNMeEveVOS-S8eQa8Ztg9bgrfHk',
